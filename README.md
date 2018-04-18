@@ -1,9 +1,10 @@
 # JS-Example
+
 1、可以自定义时间暂停下来的动画
 
-setTimeout->(调用)setInterval()->步长函数(调用)：setTimeout可以实现初始化等待时间；
+a、setTimeout->(调用)setInterval()->步长函数(调用)：setTimeout可以实现初始化等待时间；
 
-步长函数->(调用)重新启动setTimeout函数->（调用）setInterval()->步长函数:重新启动setTimeout函数可以实现每次自定义动画时间
+b、步长函数->(调用)重新启动setTimeout函数->（调用）setInterval()->步长函数:重新启动setTimeout函数可以实现每次自定义动画时间
 
 
 2、轮播图一般有两个index:
