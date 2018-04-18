@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery.min.js" ></script>
+		
+		<style>
+			*{padding:0;margin:0;list-style: none;}
+			.clearfix:after {content:'';display:block;height:0;visibility:hidden;clear:both;}
+			.clearfix {zoom:1;}
+		    .banner{
+		        width:1100px;
+		        height:312px;
+		        overflow: hidden;
+		        margin:0 auto;
+		        position:relative;
+		    }
+		    .banner>ul{
+		        height:312px;
+		        position: absolute;
+		        left:0;
+		        top:0;
+		    }
+		    .banner>ul li{
+		        float:left;    
+		        width:1100px;
+		    }
+		    .banner>ul li a img{
+		        width: 100%;
+		        height: auto;
+		    }
+		    .order{
+		        height:30px;
+		        position: absolute;
+		        top:90%;
+		        left:0;
+		        right: 0;
+		        margin:0 auto;
+		        text-align: center;
+		    }
+		    .order i{
+		        display:inline-block;
+		        width:16px;
+		        height:16px;
+		        border-radius: 50%;
+		        background:chocolate;
+		        border:2px solid chocolate;
+	            margin: 0 5px;
+		        cursor:pointer;
+		    }
+		    .order .on{
+		        background:white;
+		    }
+
+		    .prev,.next{
+		    	height:60px;
+		        position: absolute;
+		        top:120px;
+		        width:40px;
+		        background: #ccc;
+		        color:#FFF;
+		        border:0;
+		        outline:none;
+		        opacity: 0.5;
+		        font-size: 30px;
+		        cursor:pointer;
+		        display: none;
+		    }
+		    .prev{
+		    	left: 10px;
+		    }
+		    .next{
+				right: 10px;
+		    }
+
+		</style>
+	</head>
+	<body>
+		<div class="banner" id="banner">
+		    <ul class="bannerUl clearfix">
+		    	<li><a href="#"><img src="images/kn3.jpg" /></a></li>
+		        <li><a href="#"><img src="images/kn4.png"/></a></li>
+		        <li><a href="#"><img src="images/kn.jpg"/></a></li>
+		        <li><a href="#"><img src="images/kn2.jpg"/></a></li>
+		        <li><a href="#"><img src="images/kk.jpg"/></a></li>
+		    </ul>
+		    <div class="order">
+		           
+		    </div>
+	        <button title="上一张" class="prev"><</button>
+	        <button title="下一张" class="next">></button>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/slider4.js"></script>
+	<script>
+//slider1
+//		$(function(){
+//			var ban = $('#banner>ul');
+//			var or = $('.order');
+//			var ct = $(".ctrl");
+//			slider(ban,or,ct,1100);
+//
+//	    });
+//slider2
+//		window.onload = function(){
+//			slider('banner','bannerUl','order','prev','next')
+//		}
+
+//slider3
+//		var ccc = new slider('banner','bannerUl','order','prev','next');
+		
+//slider4
+		var ccc = new slider('banner','bannerUl','order','prev','next');
+		ccc.autoPlay();
+		ccc.pClickMouse();
+	</script>
+</html>

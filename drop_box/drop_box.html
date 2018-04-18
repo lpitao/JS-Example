@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			
+			#slider {
+			    margin: 0px auto;
+			    padding: 0px;
+			    width: 400px;
+			    border: 1px solid #000;
+			    background: #0f0;
+			    height: 20px;
+			    overflow: hidden;
+			}
+		</style>
+	</head>
+<body>
+	<h1> Toggle Slide </h1>
+	<input type="button" id="slide" value=" Slide Down ">
+	<span id="log" style="position:absolute; left:10px; top:150px;"></span>
+	<br>
+    <div id="slider" style="height: 80px;">
+        content goes here
+    </div>
+    <script type="text/javascript" src="js/drop_box.js"></script>
+    <script type="text/javascript">
+    	new drop("slider","slide");
+    </script>
+	</body>
+</html>
