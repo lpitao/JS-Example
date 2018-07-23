@@ -4,7 +4,7 @@
 //		一般由原来的index,队列的长度,上次点击的index(那几个位置index的值每次赋在不同的index:控制它们的位置)
 
 
-// (function(win,doc,undefined){
+(function(win,doc,undefined){
  	var zturn = function(turn){
  		this.turn = turn;
  		this.zturn = $("#"+turn.id);
@@ -14,10 +14,10 @@
  		this.zturnPy = turn.Awidth/(this.num_li - 1)  ;
  		this.init();
    		this.turn_();
-// 		return this;
+   		return this;
  	}
  	zturn.prototype={
-// 		constructor:zturn,
+   		constructor:zturn,
  		init:function(){
 	 		var _self = this;
 			this.zturnitem.each(function(index,element){
@@ -85,7 +85,6 @@
 //				}
 // 		 		this.init()
 // 		}
- 	} 	
-// 	
-// 	win.zturn = zturn;
-// }(window,document))			
+ } 	
+   	win.zturn = zturn;
+}(window,document))			

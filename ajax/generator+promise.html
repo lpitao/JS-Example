@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//执行不同ajax请求
+			
+			request(url){
+				return new Promise((resolve, reject) => {
+					$.ajax({
+						type:'GET',
+						url:'/some',
+						dataType:"json",
+						success:function(data){
+							resolve(data)
+						},
+						error: function(xhr){
+							reject(xhr)
+						}
+					})
+				})
+			}
+			*gen(){
+				var nameList = [];
+				yield request('user/name1').then(data => {
+					nameList.push(data);
+				})
+				yield request('user/name2').then(data => {
+					nameList.push(data)
+				})
+			}
+			
+			(function(){
+				var step = gen();
+				while(!step.done){
+					step.next();
+				}
+			})
+		</script>
+	</body>
+</html>

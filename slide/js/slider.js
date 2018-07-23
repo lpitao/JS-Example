@@ -1,4 +1,6 @@
-function slider(banner,order,ctrl,leftPx){			
+function slider(banner,order,ctrl,leftPx){	
+	
+	
 	//1、初始化每一图
     var imgLis = banner.children("li");
     //将放置图片的容器ul里第一份”li“复制一份，追加到ul后面

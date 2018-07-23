@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>督导中心</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+<link rel="stylesheet" href="other/duDao/css/dudao.css" />
+		<link rel="stylesheet" href="other/duDao/css/cal.css" />
+		<link rel="stylesheet" href="other/duDao/css/iconfont.css" />
+		<script type="text/javascript" src="other/duDao/js/jquery.min.js"></script>
+  </head>
+  <script>
+  	var souSuoCode = "";
+    var currentPage = 1;
+    var souSuofenLei = "";
+    var souSuoStatus = "1,2"
+    $(function(){ 
+  			queryList(currentPage);
+	}); 
+  	function queryList(currentPage){
+  		$.ajax({
+  			type: "post",
+  			async:false,
+  			url: "newZhiNengXinPi/queryList.html",
+  			data : {currentPage:currentPage,
+  					code: souSuoCode,
+  					type:souSuofenLei,
+  					status:souSuoStatus
+  				},
+  			dataType: "json",
+  			success : function(data){
+  				var list = data.list;
+  				$("#gongGao").empty();
+  				var totalPage = data.totalPage;//总页数
+  				var currentPage = data.currentPage;//当前页
+  				var shangyiye =1; //上一页
+  				var xiayiye = 1;
+  				if(currentPage<totalPage){
+  					xiayiye =  Number(currentPage)+1;
+  				}
+  				if(currentPage>1){
+  					shangyiye = Number(currentPage)-1;
+  				}
+  				$("#syy").attr("href","javascript:queryList("+shangyiye+")");
+  				$("#xyy").attr("href","javascript:queryList("+xiayiye+")");
+  				$("#dqy").html(data.currentPage+"/"+data.totalPage);
+  				$("#zg").html("共"+data.totalPage+"页");
+  				for(var i=0;i<list.length;i++){
+  					var type = list[i].TYPE;
+  					var zhuangTai = "";
+  					var abiaoQian  = "";
+  					if(list[i].STATUS==1){
+  						abiaoQian = "<a href='newZhiNengXinPi/yiJian.html?id="+list[i].ID+"&type="+type+"'>编辑</a>";
+  						zhuangTai = "待审核";
+  					}else{
+  						abiaoQian = "";
+  						zhuangTai = "已打回至董秘";
+  					}
+  					var updateTime = list[i].UPDATE_TIME;
+  					if(updateTime==null||updateTime==""){
+  						updateTime = "-";
+  					}else{
+  						updateTime = updateTime.substring(0,updateTime.length-2);
+  					}
+  					$("#gongGao").append("<tr> "+
+									"	<td>"+list[i].TITLE+"</td> "+
+									"	<td>董事会决议</td> "+
+									"	<td>"+zhuangTai+"</td> "+
+									"	<td> "+abiaoQian+
+									"	</td> "+
+									"	<td class='time'>"+updateTime+"</td> "+
+									" </tr>");
+  				}
+  			}
+		});
+  	}
+  	function code(codes){
+  		var code = $(codes).val();
+  		if(code==0){
+  			souSuoCode = "" ;
+  		}else{
+  			souSuoCode = code ;
+  		}
+  		currentPage = 1;
+  		queryList(currentPage);
+  	}

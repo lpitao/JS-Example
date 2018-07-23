@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>督导中心</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	
+	<link rel="stylesheet" href="other/duDao/css/dudao.css" />
+	<link rel="stylesheet" href="other/duDao/css/cal.css" />
+	<link rel="stylesheet" href="other/duDao/css/iconfont.css" />
+	<script type="text/javascript" src="other/duDao/js/jquery.min.js"></script>
+	<script type="text/javascript" src="other/duDao/js/slider.js"></script>
+  </head>
+  <script>
+  
+  		function tongGuoOrJuJue(type,id){
+  			$.ajax({
+  				type: "post",
+  				async:false,
+  				url: "newZhiNengXinPi/updateAdminQingQiu.html",
+  				data : {id:id,
+  					type:type
+  					},
+  				dataType: "json",
+  				success : function(data){
+  					if(data=="1"){
+  						window.loation.href="newZhiNengXinPi/adminSy.html";
+  					}else{
+  						layer.msg("系统错误!请稍后再试");
+  					}
+  				}
+			});
+  		}
+  </script>
+ <body>
+   <header class="navbar navbar-default navbar-fixed-top" id="main-nav">
+    	 <jsp:include page="/role/toTou.html"></jsp:include> <!-- 头部结束 -->
+    	<div class="header-line"></div>
+    </header>
+		<div class="w1100">
+			<div class="ao_head">
+				<div class="ao_img">
+					<img src="${userSessionName.dataMap.imgStore.imagePath }"/>
+				</div>
+				<div class="ao_content">
+					<p class="ao_name">${userSessionName.userName}</p>
+					<p class="ao_compan">${qsList[0].QUANSHANAGNAME}</p>
+					<span>上次登录时间：<i>${p:substring(loginIp.loginTime, 0, p:length(loginIp.loginTime)-3) }</i></span>
+				</div>
+				<div class="ao_slide" style="display: none;">
+					<ul>
+						<li><a href="newZhiNengXinPi/updataUserYm.html">
+							<i class="iconfont icon-xiugai07"></i>
+							修改基本信息
+						</a></li>
+						<li><a href="userCenter/logout.html">
+							<i class="iconfont icon-web-icon-"></i>
+							退出登录
+						</a></li>
+					</ul>
+				</div>
+				<div class="gly1_return">
+					<ul>
+						<li>
+							<a href="newZhiNengXinPi/quanShangSyPC.html">
+								<i class="iconfont icon-fanhui"></i>
+								<span>返回首页</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="ao_slide" style="display: none;">
+					<ul class="clearfix">
+						<li><a href="newZhiNengXinPi/updataUserYm.html">
+							<i class="iconfont icon-xiugai07"></i>
+							修改基本信息
+						</a></li>
+						<li><a href="userCenter/logout.html">
+							<i class="iconfont icon-web-icon-"></i>
+							退出登录
+						</a></li>
+					</ul>
+				</div>
+			</div>
+		    <div class="ao_middel clearfix">
+		    	<div class="ao_left">
+		    		<div class="ao_date">
+		    			<div class='calendar' 

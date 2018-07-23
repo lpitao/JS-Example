@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+		<script type="text/javascript">
+			function load(){
+				var xmlhttp = null;
+				if(window.XMLHttpRequest){
+					xmlhttp = new XMLHttpRequest();
+				}else if(window.ActiveXObject){
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xmlhttp.onreadystatechange = function(){
+					if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+						document.querySelector('#post_txt').innerHTML = xmlhttp.responseText
+					}
+				}
+				//确定请求参数
+				xmlhttp.open("POST","./06-ajax-reg.php",true)
+				//setRequestHeader(header,value) header: 规定头的名称 value: 规定头的值
+				xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+				//发送请求
+				xmlhttp.send("user=simple&sex=men");
+
+			}
+			
+			
+//			var url = "./try/ajax_info.xml";
+//			function loadXMLDoc(){
+//				var xmlhttp = new XMLHttpRequest();
+//				xmlhttp.onreadystatechange = function(){
+//					if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+//						document.querySelector("#A1").innerHTML = xmlhttp.status;
+//						document.querySelector("#A1").innerHTML = xmlhttp.statusText;
+//						document.querySelector("#A1").innerHTML = xmlhttp.responseText;
+//					}
+//				}
+//				xmlhttp.open("GET",url,true);
+//				xmlhttp.send();
+//			}
+		</script>
+	<body>
+		<h2>AJAX POST</h2>
+		<button type="button" onclick="load()">请求数据</button>
+		<div id="post_txt"></div>
+		
+		<!--<h2>Retrieve data from XML file</h2>
+		<p><b>Status:</b><span id="A1"></span></p>
+		<p><b>Status text:</b><span id="A2"></span></p>
+		<p><b>Response:</b><span id="A3"></span></p>
+		<button type="button" onclick="loadXMLDoc()">修改内容</button>-->
+	</body>
+</html>

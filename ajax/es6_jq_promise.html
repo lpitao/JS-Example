@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+			var def = $.Deferred();
+			console.log(def)
+			
+			function runAsync(){
+				var def = $.Deferred();
+				setTimeout(function(){
+					console.log('执行完成');
+					def.resolve('随便什么数据')
+				},2000);
+				return def;
+			}
+			runAsync().then(function(data){
+				console.log(data)
+			});
+		</script>
+	</body>
+</html>

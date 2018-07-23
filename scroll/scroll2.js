@@ -1,5 +1,3 @@
-
-
 function scroll(block,track,txt,oContainer){
 	    //1、触发的鼠标下移事件
     	block.onmousedown = function(e) {  

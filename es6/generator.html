@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+//			function * generator(){
+//				console.log('start')
+//				var res = yield loop();
+//				console.log('end')
+//			}
+//			
+//			function loop(){
+//				return new Promise(function(resolve, reject){
+//					try {
+//						console.time('loop');
+//						for (var i = 0; i < 10000; i++){}
+//						console.timeEnd('loop');
+//					}catch(e){
+//						reject(e);
+//					}
+//					resolve();
+//				})
+//			}
+//			
+//			var g = generator();
+//			g.next().value.then(function(){
+//				g.next();
+//			})
+//比如我们从服务端加载数据后需要刷新界面的操作,用回调的方式写法如下:
+//			function loadDataFromWeb(url, function(data){
+//				refreshUI(data);
+//			})
+//			function *loadData(){
+//				let data = yield loadDataFromWeb(url);
+//				refreshUI(data);
+//			}
+//			var loader = loadData();
+//			
+//			//加载数据
+//			loader.next().value;
+//			//刷新界面
+//			loader.next();
+//用Generator可以改善代码运行流程,另外通过Promise对象也可以实现逻辑以及代码上简洁的链式调用
+		
+//			function* numbers(){
+//				yield 1;
+//				try{
+//					yield 2;
+//					yield 3;
+//				}finally{
+//					yield 4;
+//					yield 5;
+//				}
+//				yield 6;
+//			}
+//			var g = numbers();
+//			console.log(g.next());
+//			console.log(g.next());
+//			console.log(g.return(7));
+//			console.log(g.next());
+//			console.log(g.next());
+//			
+//			function *gen(){
+//				try{
+//					yield console.log('a');
+//				}catch(e){
+//					console.log('内部捕获');
+//				}
+//				yield console.log('b');
+//				yield console.log('c')
+//			}
+//			
+//			var g = gen();
+//			g.next()
+//			g.throw()
+//			g.next()
+
+			var gen = function* gen(){
+				yield console.log('hello');
+				yield console.log('world');
+			}
+			var g = gen();
+			g.next();
+			
+			try{
+				throw new Error(); 
+			}catch(e){
+				g.next()
+			}
+		</script>
+	</body>
+</html>

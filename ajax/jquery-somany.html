@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" charset="utf-8" src="http://127.0.0.1:8020/play/ajax/js/jquery.min.js"></script>
+	</head>
+	<body>
+		<form>
+			<input type="text" name="name" id="name" />
+			<input type="submit" id="sub" value="提交" />
+		</form>
+		<h2>页面显示回来的内容</h2>
+		<div id="result"></div>
+		
+		<div id="text">
+			123
+		</div>
+		<script type="text/javascript">
+			
+			$(document).ready(function(){
+				$("#sub").click(function(e){
+					e.preventDefault();
+//					$.get("leyangjun.php",{name:$("#name").val()},function(data,textStatus){
+//						console.log(data)
+//						$("#result").append("data:" + data.name);
+//						$("#result").append("<br>age:" + data.hihi);
+//						  $("#result").append("<br>textStatus:"+textStatus);
+//					});
+
+							
+					var name = $("input[name='name']").val();
+					$.ajax({
+						type:"get",
+						url:"leyangjun.php",
+//						dataType:"json",
+						async:true,
+						data: {name: name},
+						success:function(data,textStatus){
+							console.log(data)
+							$("#result").append("name:" + data.name)
+							$("#result").append("<br>age:" + data.hihi);
+						    $("#result").append("<br>textStatus:"+textStatus);
+						},
+						error:function(){
+							alert("Error11")
+						}
+					});
+				})
+			})
+			
+//			function testToken()
+//			{
+//				mui.ajax('http://XX.XX.XX:8080/login.php',{
+//					data:{
+//						username:$("#username").val(),
+//						password:$("#password").val(),
+//					},
+//					dataType:'json',//服务器返回json格式数据
+//					type:'post',//HTTP请求类型
+//					timeout:5000,//超时时间设置为10秒；
+//					success:function(data){
+//						//服务器返回响应，根据响应结果，分析是否登录成功；
+//						//console.log('ok '+JSON.stringify(data));
+//						console.log("登录成功");
+//					},
+//					error:function(xhr,type,errorThrown){
+//						//异常处理；
+//						console.log(type);
+//						console.log("出错"+type);
+//					}
+//				});
+//			}
+
+			$(function(){
+				$.ajax({
+					type:"GET",
+					url:"./try/shuju.json",
+					dataType:"json",
+					async:true,
+					
+					success:function(data){
+						console.log("success!")
+						var str="<ul>";
+						$.each(data.list[0].manage, function(i,n) {
+							str += "<li>" + n.tool + "</li>";
+						});
+						str += "</ul>";
+						console.log(str)
+						$("#text").append(str);
+			
+					}
+					
+				})
+			})
+		</script>
+	</body>
+</html>

@@ -1,12 +1,14 @@
 //面向对象函数特别在于,
 //非实例属性(对象属性)不可以用在实例方法(原型方法)
-function slider(banner,bannerU,order,prev,next){
-	this.banner = document.querySelector("."+banner);
-	this.bannerUl = document.querySelector("."+bannerU);
-	this.$bannerUl = $("."+bannerU);
-	this.order  = document.querySelector("."+order);
-	this.prev   = document.querySelector("."+prev);
-	this.next   = document.querySelector("."+next);
+function slider(){
+	this.banner    = arguments[0] || 0;
+	this.bannerUl  = arguments[1] || 0;
+	this.$bannerUl = arguments[2] || 0;
+	this.order     = arguments[3] || 0;
+	this.prev      = arguments[4] || 0;
+	this.next      = arguments[5] || 0;
+	this.auto      = arguments[6] || 0;
+	
 	
 	//初始化下面要用到的全局变量
 	this.timer = null;
@@ -25,14 +27,17 @@ function slider(banner,bannerU,order,prev,next){
 	this.bannerUl.style.width = this.perWidth * this.bannerLengthNew + 'px';
 	
 	//3、画小原点
-	for(var i = 0; i < this.bannerLength; i++){
-		this.orderI = document.createElement("i");
-	 	this.order.appendChild(this.orderI)
+	if(this.order){
+		for(var i = 0; i < this.bannerLength; i++){
+			this.orderI = document.createElement("i");
+		 	this.order.appendChild(this.orderI)
+		}
+		//给定小圆点宽度
+		this.order.style.width = this.orderI.offsetWidth * this.bannerLength * 1.5 + 'px';
+		//初始化小圆圈的样子
+		this.order.children[0].classList.add('on');
 	}
-	//给定小圆点宽度
-	this.order.style.width = this.orderI.offsetWidth * this.bannerLength * 1.5 + 'px';
-	//初始化小圆圈的样子
-	this.order.children[0].classList.add('on');
+
 	
 //	三个方面:
 //	一个是,最最重要的play动画,可以让轮播图看起来滚来滚去,
@@ -45,8 +50,11 @@ function slider(banner,bannerU,order,prev,next){
 //	绕来绕去脑补小图画是:
 //			index++后,当从最后点击到1,之后再点击的时候,index超过+1的index,于是下一次运行起始位置把index设置为1而不是0,这样下面的动画可以动
 //			index--后,当从1点击到最后,index设置为+1的,这样下面动起来是正常的,一开始设置的起始位置是+2的
-			
-	this.autoPlay();
+	
+	if(this.auto){
+		this.autoPlay();
+	}
+	
 	this.pClickMouse();
 }
 //根据全局index向左向右滑动
@@ -70,16 +78,18 @@ slider.prototype.play = function(){
 	this.$bannerUl.animate({
 		left : -_self.perWidth * _self.Index + 'px'
 	})
-
-	for(var i = 0; i < _self.bannerLength;i++){
-		_self.order.children[i].setAttribute('class','');
-	}
-	//index走到这里的时候已经不会出现小于0,和大于正常结尾index+2的index了
-	//所以嘞，把稍微不正常的index+1解决一下
-	if(_self.Index > _self.bannerLength - 1){
-		_self.order.children[0].classList.add('on');
-	}else{
-		_self.order.children[_self.Index].classList.add('on')
+	
+	if(_self.order){
+		for(var i = 0; i < _self.bannerLength;i++){
+			_self.order.children[i].setAttribute('class','');
+		}
+		//index走到这里的时候已经不会出现小于0,和大于正常结尾index+2的index了
+		//所以嘞，把稍微不正常的index+1解决一下
+		if(_self.Index > _self.bannerLength - 1){
+			_self.order.children[0].classList.add('on');
+		}else{
+			_self.order.children[_self.Index].classList.add('on')
+		}
 	}
 }
 
@@ -97,35 +107,41 @@ slider.prototype.autoPlay = function(){
 
 slider.prototype.pClickMouse = function(){
 	var _self = this;
-	_self.prev.onclick = function(){
-		_self.Index--;
-		_self.play();
-	}
-	_self.next.onclick = function(){
-		_self.Index++;
-		_self.play();
-	}
-	
-		//onmouseenter从父亲到孩子传播，无论，onclick,onmouseover
-	this.banner.onmouseenter = function(e){
-		clearInterval(_self.timer);
-		_self.prev.style.display = "block";
-		_self.next.style.display = "block";
-	}
-	this.banner.onmouseleave = function(){
-		_self.autoPlay();
-		_self.prev.style.display = "none";
-		_self.next.style.display = "none";
-	}
-
-	//for循环一开始读的文档，onmouseover,functions以上的内容都可以写下来，function后面的内容需要运行起来，不能用i
-	for(var i = 0; i < _self.bannerLength;i++){
-		_self.order.children[i].index = i;
-		_self.order.children[i].onmouseenter = function(){
-			_self.Index = this.index;
+	if(_self.prev || _self.next){
+		_self.prev.onclick = function(){
+			_self.Index--;
 			_self.play();
 		}
-	}	
+		_self.next.onclick = function(){
+			_self.Index++;
+			_self.play();
+		}
+		//onmouseenter从父亲到孩子传播，无论，onclick,onmouseover
+		this.banner.onmouseenter = function(e){
+			clearInterval(_self.timer);
+			_self.prev.style.display = "block";
+			_self.next.style.display = "block";
+		}
+		this.banner.onmouseleave = function(){
+			_self.autoPlay();
+			_self.prev.style.display = "none";
+			_self.next.style.display = "none";
+		}
+	}
+
+
+
+	//for循环一开始读的文档，onmouseover,functions以上的内容都可以写下来，function后面的内容需要运行起来，不能用i
+	if(_self.order){
+		for(var i = 0; i < _self.bannerLength;i++){
+			_self.order.children[i].index = i;
+			_self.order.children[i].onmouseenter = function(){
+				_self.Index = this.index;
+				_self.play();
+			}
+		}
+	}
+	
 }
 	
 	

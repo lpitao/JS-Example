@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	
+		<script type="text/javascript">
+//一个接口的参数会需要使用另一个接口获取 ==>3
+//ajax就是拿数据的，.then .catch方法就是处理业务逻辑 ==>最后
+			function pms1(){
+				return new Promise(function(resolve, reject){
+					setTimeout(function(){
+						console.log('执行任务1');
+						resolve('执行任务1成功');
+					},2000)
+				});
+			}
+			
+			function pms2(){
+				return new Promise(function(resolve, reject){
+					setTimeout(function(){
+						console.log('执行任务2');
+						resolve('执行任务2成功');
+					},2000);
+				});
+			}
+			
+			function pms3(){
+				return new Promise(function(resolve, reject){
+					setTimeout(function(){
+						console.log('执行任务3');
+						resolve('执行任务3成功');
+					},2000);
+				});
+			}
+//1、all()方法最后一起执行回调函数,三个都完成执行回调
+			Promise.all([pms1(), pms2(), pms3()]).then(function(data){
+				console.log(data);
+//				console.log({}.toString.call(data));
+			})
+//			all方法的效果实际上是「谁跑的慢，以谁为准执行回调」，那么相对的就有另一个方法race「谁跑的快，以谁为准执行回调
+//2、race()方法首先一起执行回调函数
+//			Promise.race([pms1(),pms2(),pms3()]).then(function(data){
+//				console.log(data)
+//			})
+//3、then()每次执行回调函数，等第一个执行完成之后执行
+			pms1().then(function(data){
+				console.log('第1个回调：'+ data);
+				return pms2();
+			})
+			.then(function(data){
+				console.log('第2个回调：'+ data);
+				return pms3();
+			})
+			.then(function(data){
+				console.log('第三个回调：' + data);
+				return '还没'
+			})
+			.then(function(data){
+				console.log(data);
+			})
+			
+			
+
+//4、从函数参数传递给回调函数先驱resolve()的data，然后执行上一个参数
+			function getPromise(n){
+				return new Promise((resolve, reject) => {
+					if(n <= 100){
+						console.log("hihi")
+						resolve(n)
+					}else{
+						reject('请传入100以内的数值！');
+					}
+				})
+			}
+			getPromise(1)
+				.then((a) => {
+					console.log(a);
+					return a+1
+				})
+				.then((b) => {
+					console.log(b);
+					return b+5;
+				})
+				.then((c) => {
+					console.log(c);
+					return c+1
+				})
+				
+//ajax栗子		
+//			var getUserInfo = new Promise(function(resolve,reject){
+//				$.ajax({
+//					type:"get",
+//					url:"index.aspx",
+//					async:true,
+//					success: function(data){
+//						if(data.Status == "1"){
+//							resolve(data.ResultJson)
+//						}else{
+//							reject(data.ErrMsg);
+//						}
+//					}
+//				});
+//			})
+//			
+//			var getDataList = new Promise(function(resolve,reject){
+//				$.ajax({
+//					type: "get",
+//					url: "index.aspx",
+//					success: function(data){
+//						if(data.Status == "1"){
+//							resolve(data.ResultJson)
+//						}else{
+//							reject(data.ErrMsg);
+//						}
+//					}
+//				})
+//			})
+//			getUserInfo.then(function(ResultJson){
+//				
+//			}).catch(function(ErrMsg){
+//				
+//			})
+//
+//			Promise.all([getUserInfo,getDataList]).then(function([ResultJson1,ResultJson2]){
+//				
+//			})
+		</script>
+	</body>
+</html>

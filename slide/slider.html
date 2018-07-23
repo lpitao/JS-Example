@@ -92,7 +92,7 @@
 	        <button title="下一张" class="next">></button>
 		</div>
 	</body>
-	<script type="text/javascript" src="js/slider4.js"></script>
+	<script type="text/javascript" src="js/slide3.js"></script>
 	<script>
 //slider1
 //		$(function(){
@@ -108,11 +108,19 @@
 //		}
 
 //slider3
-//		var ccc = new slider('banner','bannerUl','order','prev','next');
+		var ban = document.querySelector("#banner")
+		var banUl = document.querySelector('#banner>ul');
+		var $banUl = $("#banner>ul")
+		var or = document.querySelector('.order');
+		var ct = document.querySelector(".ctrl");
+		var pre = document.querySelector(".prev");
+		var next = document.querySelector(".next");
+		
+		var ccc = new slider(ban,banUl,$banUl,or,false,false,false);
 		
 //slider4
-		var ccc = new slider('banner','bannerUl','order','prev','next');
-		ccc.autoPlay();
-		ccc.pClickMouse();
+//		var ccc = new slider('banner','bannerUl','order','prev','next');
+//		ccc.autoPlay();
+//		ccc.pClickMouse();
 	</script>
 </html>

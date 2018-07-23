@@ -79,8 +79,6 @@
 				} 
 			}
 		} 
-		
-		
 		setTimeout(msobj.Begin, stoptime); 
 	} 
 	Marquee.prototype.Scroll = function() { 
