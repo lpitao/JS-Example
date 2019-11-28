@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				border-radius: 50%;
+				background: dodgerblue;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script type="text/javascript">
+			var speedTop = 8;
+			var speedLeft = 8;
+			var maxLeft = document.documentElement.clientWidth - box.clientWidth;
+			var maxTop  = document.documentElement.clientHeight - box.clientHeight;
+			
+			autoMove()
+			function autoMove(){
+				var top_ori = box.offsetTop;
+				var left_ori = box.offsetLeft;
+				var target_top = top_ori + speedTop;
+				var target_left = left_ori + speedLeft;
+				
+				if(target_top >= maxTop){
+					speedTop *= (-1);
+					target_top = top_ori + speedTop;
+					target_top = Math.min(maxTop,target_top);
+				}
+				if(target_top <= 0){
+					speedTop *= (-1);
+					target_top = top_ori + speedTop;
+					target_top = Math.max(0,target_top);
+				}
+				if(target_left >= maxLeft){
+	                speedLeft = speedLeft * (-1);
+	                target_left = left_ori + speedLeft;
+	                target_left = Math.min(maxLeft,target_left) ;
+	            }
+	            if(target_left <= 0){
+	                speedLeft = speedLeft * (-1);
+	                target_left = left_ori + speedLeft;
+	                target_left = Math.max(0,target_left)
+	            }
+				box.style.top = target_top + 'px';
+				box.style.left = target_left + 'px';
+				requestAnimationFrame(autoMove);
+			}
+			window.onresize = function(){
+				maxLeft = document.documentElement.clientWidth - box.clientWidth;
+				maxTop  = document.documentElement.clientHeight - box.clientHeight;
+			}
+		</script>
+	</body>
+</html>
